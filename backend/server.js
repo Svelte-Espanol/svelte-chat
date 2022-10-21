@@ -1,25 +1,21 @@
-// BACK
+// Backend
+import express from "express";
+import http from "http";
 
-// import other libraries as CJS
-const express = require('express')
-const http = require('http')
-const app = express()
-const server = http.createServer(app)
-const port = 4000
+const app = express();
+const server = http.createServer(app);
+const port = 4000;
 
 // let players = {}
 
-
 const main = async () => {
+  const { geckos } = await import("@geckos.io/server");
 
-  const { geckos } = await import('@geckos.io/server');
+  const io = geckos();
 
-  const io = geckos()
-
-  io.addServer(server)
-  io.onConnection(channel => {
-
-    console.log("ID ", channel.id)
+  io.addServer(server);
+  io.onConnection((channel) => {
+    console.log("ID ", channel.id);
 
     // players[channel.id] = {
     //   playerId: channel.id,
@@ -27,10 +23,9 @@ const main = async () => {
     // }
 
     setInterval(() => {
-      const randomName = Math.random().toString(36).substring(7)
-      channel.emit('app_android', randomName)
-    }, 4000)
-
+      const randomName = Math.random().toString(36).substring(7);
+      channel.emit("app_android", randomName);
+    }, 4000);
 
     // channel.on('message', (data) => {
     //   const obj = { name: players[channel.id].name, message: data.message }
@@ -43,17 +38,16 @@ const main = async () => {
     //   delete channel.id;
     //   console.log(`${channel.id} got disconnected`)
     // })
-  })
+  });
 
   // create a GET route
-  app.get('/', (req, res) => {
-    res.send({ response: 'I am alive' }).status(200)
-  })
+  app.get("/", (req, res) => {
+    res.send({ response: "I am alive" }).status(200);
+  });
 
   server.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
-  })
+    console.log(`Example app listening at http://localhost:${port}`);
+  });
+};
 
-}
-
-main()
+main();
