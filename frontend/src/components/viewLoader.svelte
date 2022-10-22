@@ -1,5 +1,5 @@
 <script>
-    import MainRoom from "./mainRoom.svelte";
+  import MainRoom from "./mainRoom.svelte";
 
   let currentView = 0;
   const views = [MainRoom];

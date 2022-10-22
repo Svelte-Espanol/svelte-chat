@@ -1,4 +1,5 @@
 <script>
+  // import { channel } from "./lib/socketConnection";
   import ViewLoader from "./components/viewLoader.svelte";
   import Welcome from "./components/welcome.svelte";
   import { hasTheUserChosenAUserName } from "./stores/stores";
