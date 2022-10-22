@@ -1,16 +1,18 @@
 <script>
-  import { channel } from "./lib/socketConnection";
+  import ViewLoader from "./components/viewLoader.svelte";
+  import Welcome from "./components/welcome.svelte";
+  import { hasTheUserChosenAUserName } from "./stores/stores";
 
-  let menssages = {
-    android: [],
-  };
+  // let menssages = {
+  //   android: [],
+  // };
 
-  channel.on('app_android', (data) => {
-    menssages.android = menssages.android.concat(data);
-  });
+  // channel.on('app_android', (data) => {
+  //   menssages.android = menssages.android.concat(data);
+  // });
 </script>
 
-<main>
+<!-- <main>
   Hola mundo sockets
 
   <div>
@@ -21,4 +23,13 @@
       {/each}
     </ul>
   </div>
+</main> -->
+<main>
+  {#if !$hasTheUserChosenAUserName}
+    <Welcome />
+  {/if}
+
+  {#if $hasTheUserChosenAUserName}
+    <ViewLoader />
+  {/if}
 </main>
